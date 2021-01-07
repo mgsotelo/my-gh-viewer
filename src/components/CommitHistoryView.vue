@@ -3,12 +3,14 @@
     <h2>Commits</h2>
     <div class="scrollme">
       <single-commit-view
+        @commitClicked="emitCommit($event)"
         v-for="commit in thecommits"
-        :key="commit.id"
+        :key="commit.sha"
         :title="commit.commit.message | onlyTitle"
         :description="commit.commit.message | onlyDesc"
         :userCommit="commit.commit.author.name"
         :ago="commit.commit.committer.date | ago"
+        :refer="commit.sha"
       >
       </single-commit-view>
     </div>
@@ -18,7 +20,7 @@
 <script>
 import SingleCommitView from './SingleCommitView';
 const axios = require('axios').default;
-const moment = require('moment'); // require
+const moment = require('moment');
 
 export default {
   data() {
@@ -28,21 +30,20 @@ export default {
   },
 
   filters: {
-    onlyTitle: function (wtf) {
-      if (!wtf) return '';
+    onlyTitle: function (text) {
+      if (!text) return '';
       var regexstring = new RegExp('.+[^\\n]', 'g');
-      return regexstring.exec(wtf)[0];
+      return regexstring.exec(text)[0];
     },
 
-    onlyDesc: function (wtf) {
-      if (!wtf) return '';
+    onlyDesc: function (text) {
+      if (!text) return '';
       var regexstring = new RegExp('[\\n]{2}(.+)', 'g');
-      var omg = regexstring.exec(wtf);
-      // console.log(omg)
-      if (omg === null) {
+      var result = regexstring.exec(text);
+      if (result === null) {
         return 'No description';
       } else {
-        return omg[1];
+        return result[1];
       }
     },
 
@@ -73,6 +74,13 @@ export default {
         console.log(error);
       }
     },
+
+    async emitCommit(sha) {
+      // console.log(sha)
+      const response = await axios.get('https://api.github.com/repos/' + this.repo + '/commits/' + sha)
+      console.log(response.data)
+      this.$emit('commitRequired', response.data)
+    }
   },
 
   async mounted() {
@@ -83,8 +91,11 @@ export default {
 
 <style scoped>
 .scrollme {
-  height: 80%;
+  max-height: 600px;
   overflow: scroll;
 }
 
+h2 {
+  text-align: left;
+}
 </style>

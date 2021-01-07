@@ -1,5 +1,6 @@
 <template>
   <div class="mybordered">
+    <a href="#" rel="noopener noreferrer" @click="referMe"><span>{{refer}}</span></a>
     <h4>{{ title }}</h4>
     <p class="desc">
       {{ description }} - by <strong>{{ userCommit }}</strong>
@@ -11,6 +12,11 @@
 <script>
 export default {
   props: {
+
+    refer:{
+      type:String,
+      default: ""
+    },
     repo: {
       type: String,
       default: 'mgsotelo/my-gh-viewer',
@@ -36,10 +42,21 @@ export default {
       default: '',
     },
   },
+
+  methods: {
+    referMe() {
+      this.$emit('commitClicked', this.$props.refer)
+    }
+  },
+
+
 };
 </script>
 
 <style scoped>
+span {
+  font-size: 9px;
+}
 .mybordered {
   margin: 3px;
   padding: 10px;
@@ -61,5 +78,6 @@ export default {
 .mybordered p.time {
   color: #292626;
   font-size: 12px;
+  text-align: right;
 }
 </style>
