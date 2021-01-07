@@ -3,8 +3,14 @@
     <h2>Files changed</h2>
     <span>{{ sha }}</span>
     <div class="scrollme">
-      <div v-for="file in files" :key="file.id">
-        {{ file }}
+      <div class="file" v-for="file in files" :key="file.id">
+        <!-- {{ file }} -->
+        <span>
+          <a target="_blank" :href="file.blob_url">{{ file.filename }} </a>
+        </span>
+        <span> <div class="inline addition"></div> {{file.additions}} additions. </span>
+        <span> <div class="inline deletion"></div> {{file.deletions}} deletions. </span>
+        
       </div>
     </div>
   </div>
@@ -36,4 +42,24 @@ span {
   overflow: scroll;
 }
 
+.file {
+  display: block;
+  border: solid #1c1c1c1c 0.5px;
+  margin: 3px;
+}
+
+.inline {
+  display: inline-block;
+  border: solid #1c1c1c1c 0.5px;
+  min-height: 10px;
+  min-width: 10px;
+}
+
+.inline.addition {
+  background-color: green;
+}
+
+.inline.deletion {
+  background-color: red;
+}
 </style>
