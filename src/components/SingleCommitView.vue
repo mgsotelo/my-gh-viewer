@@ -4,7 +4,7 @@
     <p class="desc">
       {{ description }} - by <strong>{{ userCommit }}</strong>
     </p>
-    <p>{{ ago }}</p>
+    <p class="time">{{ ago }}</p>
   </div>
 </template>
 
@@ -41,6 +41,8 @@ export default {
 
 <style scoped>
 .mybordered {
+  margin: 3px;
+  padding: 10px;
   border-color: #1c1c1c;
   border-width: 3px;
   background-color: rgba(25, 184, 25, 0.123);
@@ -54,5 +56,10 @@ export default {
 
 .mybordered p.desc {
   font-size: 14px;
+}
+
+.mybordered p.time {
+  color: #292626;
+  font-size: 12px;
 }
 </style>

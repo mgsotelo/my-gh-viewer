@@ -7,11 +7,11 @@
     </b-row>
 
     <b-row>
-      <b-col cols="3">
+      <b-col cols="4">
         <!-- aqui va el CommitHistoryView (union de varios SingleCommitViews) -->
         <commit-history-view></commit-history-view>
       </b-col>
-      <b-col cols="9">
+      <b-col cols="8">
         <!-- aqui van los archivos cambiados de cada Commit (FilesChangedView) -->
       </b-col>
     </b-row>
