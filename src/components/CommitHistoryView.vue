@@ -1,20 +1,24 @@
 <template>
   <div>
     <h2>Commits</h2>
-    <single-commit-view
-      v-for="commit in thecommits"
-      :key="commit.id"
-      :title="commit.commit.message | onlyTitle"
-      :description="commit.commit.message | onlyDesc"
-      :userCommit="commit.commit.author.name"
-    >
-    </single-commit-view>
+    <div class="scrollme">
+      <single-commit-view
+        v-for="commit in thecommits"
+        :key="commit.id"
+        :title="commit.commit.message | onlyTitle"
+        :description="commit.commit.message | onlyDesc"
+        :userCommit="commit.commit.author.name"
+        :ago="commit.commit.committer.date | ago"
+      >
+      </single-commit-view>
+    </div>
   </div>
 </template>
 
 <script>
 import SingleCommitView from './SingleCommitView';
 const axios = require('axios').default;
+const moment = require('moment'); // require
 
 export default {
   data() {
@@ -40,6 +44,12 @@ export default {
       } else {
         return omg[1];
       }
+    },
+
+    ago: function (date) {
+      moment().format();
+      return moment(date).fromNow();
+      // return date;
     },
   },
 
@@ -71,4 +81,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.scrollme {
+  height: 80%;
+  overflow: scroll;
+}
+
+</style>
