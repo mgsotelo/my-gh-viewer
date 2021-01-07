@@ -60,8 +60,7 @@ span {
 .mybordered {
   margin: 3px;
   padding: 10px;
-  border-color: #1c1c1c;
-  border-width: 3px;
+  border: solid #1a1a1a1a 0.5px;
   background-color: rgba(25, 184, 25, 0.123);
   text-align: left;
 }

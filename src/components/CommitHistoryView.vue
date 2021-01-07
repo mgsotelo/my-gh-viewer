@@ -68,7 +68,7 @@ export default {
     async commits() {
       try {
         const response = await axios.get('https://api.github.com/repos/' + this.repo + '/commits');
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
       } catch (error) {
         console.log(error);
@@ -78,7 +78,7 @@ export default {
     async emitCommit(sha) {
       // console.log(sha)
       const response = await axios.get('https://api.github.com/repos/' + this.repo + '/commits/' + sha)
-      console.log(response.data)
+      // console.log(response.data)
       this.$emit('commitRequired', response.data)
     }
   },
